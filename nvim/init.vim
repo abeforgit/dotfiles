@@ -15,3 +15,17 @@ set softtabstop=4
 set ruler
 set undolevels=1000
 set backspace=indent,eol,start
+
+
+" PLUGINS
+
+call plug#begin('~/.config/nvim/plugged')
+
+call plug#end()
+
+
+" Filetype specific things
+autocmd FileType haskell setlocal tabstop=8 shiftround
+
+let mapleader = ' '
+nmap <Leader>nh :noh<return>

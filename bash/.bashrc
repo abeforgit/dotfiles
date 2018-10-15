@@ -144,6 +144,7 @@ export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1
 #aliaseses
 alias helios="ssh arbertra@helios.ugent.be"
 alias ll='ls -lh --color=auto'
+alias la='ls -A --color=auto'
 alias firefox='firefox-developer-edition'
 alias intellij='intellij-idea-ultimate'
 alias pycharm='pycharm-professional'
@@ -161,6 +162,7 @@ alias vim="nvim"
 alias gits="git status"
 alias inivim="vim ~/.config/nvim/init.vim"
 alias srcrc="source ~/.bashrc"
+
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
         mpd
@@ -187,7 +189,8 @@ stophoek(){
 }
 alias mongserv='mongod --dbpath ~/data/db --bind_ip 127.0.0.1'
 #customizations
-export EDITOR='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin
 
 export NVM_DIR="$HOME/.nvm"
