@@ -156,13 +156,17 @@ alias i3conf='vim ~/.config/i3/config'
 alias rpi="ssh pi@192.168.0.108"
 alias rpiremote="ssh pi@2a02:1812:240f:8600:3710:543b:5927:f817"
 alias growmake="ssh root@growth.m4kers.com"
-alias robpi="ssh abeforsysprog@81.82.58.186"
+alias robpi="ssh pi@81.82.58.186"
 alias xreload="xrdb ~/.Xresources"
 alias vim="nvim"
 alias gits="git status"
 alias inivim="vim ~/.config/nvim/init.vim"
 alias srcrc="source ~/.bashrc"
-
+alias spaceini="vim ~/.SpaceVim.d/init.toml"
+alias svim="vim -u ~/.config/svim/init.vim"
+alias lsizes="sudo du -hsx .[!.]* * | sort -rh"
+alias why="echo 'because'"
+alias csp="cd ~/repos/sysprog/project"
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
         mpd
@@ -196,3 +200,57 @@ export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Path to the bash it configuration
+export BASH_IT="/home/arne/repos/installations/bash-it"
+
+# Lock and Load a custom theme file
+# location /.bash_it/themes/
+export BASH_IT_THEME='bobby'
+
+# (Advanced): Change this to the name of your remote repo if you
+# cloned bash-it with a remote other than origin such as `bash-it`.
+# export BASH_IT_REMOTE='bash-it'
+
+# Your place for hosting Git repos. I use this for private repos.
+export GIT_HOSTING='git@git.domain.com'
+
+# Don't check mail when opening terminal.
+unset MAILCHECK
+
+# Change this to your console based IRC client of choice.
+export IRC_CLIENT='irssi'
+
+# Set this to the command you use for todo.txt-cli
+export TODO="t"
+
+# Set this to false to turn off version control status checking within the prompt for all themes
+export SCM_CHECK=true
+
+# Set Xterm/screen/Tmux title with only a short hostname.
+# Uncomment this (or set SHORT_HOSTNAME to something else),
+# Will otherwise fall back on $HOSTNAME.
+#export SHORT_HOSTNAME=$(hostname -s)
+
+# Set Xterm/screen/Tmux title with only a short username.
+# Uncomment this (or set SHORT_USER to something else),
+# Will otherwise fall back on $USER.
+#export SHORT_USER=${USER:0:8}
+
+# Set Xterm/screen/Tmux title with shortened command and directory.
+# Uncomment this to set.
+#export SHORT_TERM_LINE=true
+
+# Set vcprompt executable path for scm advance info in prompt (demula theme)
+# https://github.com/djl/vcprompt
+#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+
+# (Advanced): Uncomment this to make Bash-it reload itself automatically
+# after enabling or disabling aliases, plugins, and completions.
+# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
+
+# Uncomment this to make Bash-it create alias reload.
+# export BASH_IT_RELOAD_LEGACY=1
+
+# Load Bash It
+source "$BASH_IT"/bash_it.sh
