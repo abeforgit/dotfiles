@@ -68,4 +68,5 @@ eval $(/user/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
 xset +fp /home/arne/.fonts
 xset fp rehash
+setxkbmap -layout de
 exec $(get_session)
