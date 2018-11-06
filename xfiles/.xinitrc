@@ -3,7 +3,6 @@
 # ~/.xinitrc
 #
 # Executed by startx (run your window manager from here)
-
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -28,6 +27,7 @@ fi
 if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
+
 
 # start some nice programs
 
@@ -66,4 +66,6 @@ get_session(){
 dbus-update-activation-environment --systemd DISPLAY
 eval $(/user/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 export SSH_AUTH_SOCK
+xset +fp /home/arne/.fonts
+xset fp rehash
 exec $(get_session)

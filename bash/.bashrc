@@ -143,14 +143,8 @@ export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1
 
 #aliaseses
 alias helios="ssh arbertra@helios.ugent.be"
-alias ll='ls -lh --color=auto'
-alias la='ls -A --color=auto'
 alias firefox='firefox-developer-edition'
-alias intellij='intellij-idea-ultimate'
-alias pycharm='pycharm-professional'
 alias qute='qutebrowser'
-alias skype='skypeforlinux'
-alias skype='skypeforlinux'
 alias bashrc='vim ~/.bashrc'
 alias i3conf='vim ~/.config/i3/config'
 alias rpi="ssh pi@192.168.0.108"
@@ -159,14 +153,23 @@ alias growmake="ssh root@growth.m4kers.com"
 alias robpi="ssh pi@81.82.58.186"
 alias xreload="xrdb ~/.Xresources"
 alias vim="nvim"
-alias gits="git status"
 alias inivim="vim ~/.config/nvim/init.vim"
 alias srcrc="source ~/.bashrc"
 alias spaceini="vim ~/.SpaceVim.d/init.toml"
-alias svim="vim -u ~/.config/svim/init.vim"
+alias spvim="vim -u ~/.config/svim/init.vim"
 alias lsizes="sudo du -hsx .[!.]* * | sort -rh"
 alias why="echo 'because'"
 alias csp="cd ~/repos/sysprog/project"
+alias mongserv='mongod --dbpath ~/data/db --bind_ip 127.0.0.1'
+alias pbconf="vim ~/.config/polybar/config"
+alias wttr="curl wttr.in"
+# git aliases
+alias gits="git status"
+alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset
+    %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
+# sysprog
+alias go="make puzzle_bots_part1; ./puzzle_bots_part1"
+
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
         mpd
@@ -191,7 +194,6 @@ stophoek(){
     mpd --kill
     mpd
 }
-alias mongserv='mongod --dbpath ~/data/db --bind_ip 127.0.0.1'
 #customizations
 export EDITOR='nvim'
 export VISUAL='nvim'
@@ -200,7 +202,13 @@ export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+# start ssh-agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > ~/.ssh-agent-thing
+fi
+if [[ "$SSH_AGENT_PID" == "" ]]; then
+    eval "$(<~/.ssh-agent-thing)"
+fi
 # Path to the bash it configuration
 export BASH_IT="/home/arne/repos/installations/bash-it"
 
