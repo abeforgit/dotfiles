@@ -14,9 +14,12 @@ background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
-primary = #ffb52a
-secondary = #e60053
-alert = #bd2c40
+;primary = #ffb52a
+;secondary = #e60053
+;alert = #bd2c40
+primary = #01cdfe
+secondary = #ff71ce
+alert = #05ffa1
 
 [bar/bar1]
 monitor = ${env:MONITOR:eDP-1}
@@ -43,13 +46,16 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Hack Nerd Font:pixelsize=10;1
+;font-0 = Hack Nerd Font:pixelsize=10;1
+;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+;font-2 = Hack Nerd Font:pixelsize=10;1
+font-0 = TerminessTTF Nerd Font:pixelsize=12;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Hack Nerd Font:pixelsize=10;1
 
 modules-left = bspwm i3
 modules-center = mpd
-modules-right = filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = pomo filesystem xbacklight pulseaudio xkeyboard memory cpu wlan eth battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -451,6 +457,10 @@ menu-2-0 = power off
 menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
+[module/pomo]
+type = custom/script
+interval = 1
+exec = pomo status
 
 [settings]
 screenchange-reload = true

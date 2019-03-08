@@ -147,8 +147,7 @@ alias firefox='firefox-developer-edition'
 alias qute='qutebrowser'
 alias bashrc='vim ~/.bashrc'
 alias i3conf='vim ~/.config/i3/config'
-alias rpi="ssh pi@192.168.0.108"
-alias rpiremote="ssh pi@2a02:1812:240f:8600:3710:543b:5927:f817"
+alias rpi="ssh pi@84.197.114.11"
 alias growmake="ssh root@growth.m4kers.com"
 alias robpi="ssh pi@81.82.58.186"
 alias xreload="xrdb ~/.Xresources"
@@ -162,13 +161,24 @@ alias why="echo 'because'"
 alias csp="cd ~/repos/sysprog/project"
 alias mongserv='mongod --dbpath ~/data/db --bind_ip 127.0.0.1'
 alias pbconf="vim ~/.config/polybar/config"
+alias mman="sudo mount /dev/sdb2 ~/manjaro"
+alias wifix="sudo systemctl restart wpa_supplicant@wlp4s0"
+alias wifixx="sudo systemctl stop wpa_supplicant@wlp4s0; sleep 1; sudo systemctl restart dhcpcd@wlp4s0; sleep 1; sudo systemctl start wpa_supplicant@wlp4s0"
+
+alias wpaconf="sudoedit /etc/wpa_supplicant/wpa_supplicant-wlp4s0.conf"
 alias wttr="curl wttr.in"
+alias cbld="cmake --build . -j 8"
+alias maptui="telnet mapscii.me"
+alias makaur="makepkg -scCi"
+alias pgrep="pgrep -l"
 # git aliases
 alias gits="git status"
 alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset
     %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative"
 # sysprog
 alias go="make puzzle_bots_part1; ./puzzle_bots_part1"
+alias svim="sudoedit"
+alias zpass='PASSWORD_STORE_DIR=~/.zeus-wachtwoord-winkel pass'
 
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
@@ -194,10 +204,61 @@ stophoek(){
     mpd --kill
     mpd
 }
-#customizations
+function countdown(){
+   date1=$((`date +%s` + $1)); 
+   while [ "$date1" -ge `date +%s` ]; do 
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+}
+function stopwatch(){
+  date1=`date +%s`; 
+   while true; do 
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+    sleep 0.1
+   done
+}
+function dectohex(){
+    echo "obase=16;$1" | bc
+}
+function dectobin(){
+    pad=0
+    if [ $2 ]
+    then
+        pad=$2
+    fi
+    rslt=`echo "obase=2;$1" | bc`
+    printf "%0${pad}d" $rslt
+}
+function bintodec(){
+    echo "ibase=2;obase=A;$1" | bc
+}
+function bintohex(){
+    echo "ibase=2;obase=F;$1" | bc
+}
+function hextodec(){
+    echo "ibase=16;obase=A;$1" | bc
+}
+function hextobin(){
+    pad=0
+    if [ $2 ]
+    then
+        pad=$2
+    fi
+    rslt=`echo "ibase=16;obase=2;$1" | bc`
+    printf "%0${pad}d" $rslt
+}
+
+#rbenv
+eval "$(rbenv init -)"
+#luarocks
+eval $(luarocks path --bin)
+#customizations - environment variables
+export MAKEFLAGS="-j$(nproc)"
 export EDITOR='nvim'
 export VISUAL='nvim'
-export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin
+export JAVA_COMPILER='java'
+export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin:~/.yarn/bin:~/.dotnet/tools
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -260,5 +321,12 @@ export SCM_CHECK=true
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
 
+# Load autojump
+source /etc/profile.d/autojump.bash
+
+# Load completion
+source /usr/share/bash-completion/bash_completion
+
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+echo "locate is een ding"
