@@ -82,6 +82,11 @@ let g:mkdp_refresh_slow = 1
 " Filetype specific things
 autocmd FileType haskell setlocal tabstop=8 shiftround
 
+" cool mappings
+map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
+map ,t :tabe <C-R>=expand("%:p:h") . "/" <CR>
+map ,s :split <C-R>=expand("%:p:h") . "/" <CR>
+
 let mapleader = ' '
 nmap <Leader>nh :noh<return>
 noremap <Leader>af :Autoformat<return>

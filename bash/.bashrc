@@ -1,4 +1,4 @@
-#
+
 # ~/.bashrc
 #
 
@@ -156,6 +156,7 @@ alias inivim="vim ~/.config/nvim/init.vim"
 alias srcrc="source ~/.bashrc"
 alias spaceini="vim ~/.SpaceVim.d/init.toml"
 alias spvim="vim -u ~/.config/svim/init.vim"
+alias spmacs="( HOME=~/.spacemacs/ ; emacs )&"
 alias lsizes="sudo du -hsx .[!.]* * | sort -rh"
 alias why="echo 'because'"
 alias csp="cd ~/repos/sysprog/project"
@@ -179,6 +180,8 @@ alias gg="git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset
 alias go="make puzzle_bots_part1; ./puzzle_bots_part1"
 alias svim="sudoedit"
 alias zpass='PASSWORD_STORE_DIR=~/.zeus-wachtwoord-winkel pass'
+alias emconf="vim ~/.emacs.d/init.el"
+alias emacs="emacs -nw"
 
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
@@ -192,6 +195,39 @@ ncmpcpp() {
         $(type -P ncmpcpp) "$@"
     fi
 }
+lsvenv(){
+    ls $VENV_HOME
+}
+mkvenv(){
+    while getopts "a" opt; do
+        case "$opt" in
+            a)
+                active=1
+                ;;
+        esac
+    done
+    shift $((OPTIND-1))
+    python3 -m venv $VENV_HOME/$1
+
+    if [ active ]
+    then
+        avenv $1
+    fi
+}
+avenv(){
+    source $VENV_HOME/$1/bin/activate
+}
+rmvenv(){
+    rm -rf $VENV_HOME/$1
+}
+_venvcomplete(){
+  local curr_arg;
+  curr_arg=${COMP_WORDS[COMP_CWORD]}
+  COMPREPLY=( $(compgen -W "$(ls $VENV_HOME)" -- $curr_arg ) );
+}
+complete -F _venvcomplete avenv
+complete -F _venvcomplete rmvenv
+
 hoekstream(){
     pax11publish -e -S hoek
     killall cantata
@@ -203,6 +239,9 @@ stophoek(){
     killall cantata
     mpd --kill
     mpd
+}
+paclist(){
+    pacman -Qs $1 | grep local\/ | cut -d " " -f 1 | cut -d "/" -f 2
 }
 function countdown(){
    date1=$((`date +%s` + $1)); 
@@ -258,11 +297,12 @@ export MAKEFLAGS="-j$(nproc)"
 export EDITOR='nvim'
 export VISUAL='nvim'
 export JAVA_COMPILER='java'
-export PATH=$PATH:~/bin:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin:~/.yarn/bin:~/.dotnet/tools
+export PATH=$PATH:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin:~/.yarn/bin:~/.dotnet/tools
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export VENV_HOME="$HOME/.venvs"
 # start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-thing
@@ -275,7 +315,7 @@ export BASH_IT="/home/arne/repos/installations/bash-it"
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
-export BASH_IT_THEME='bobby'
+export BASH_IT_THEME='powerline-multiline'
 
 # (Advanced): Change this to the name of your remote repo if you
 # cloned bash-it with a remote other than origin such as `bash-it`.
