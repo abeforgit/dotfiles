@@ -156,7 +156,6 @@ alias inivim="vim ~/.config/nvim/init.vim"
 alias srcrc="source ~/.bashrc"
 alias spaceini="vim ~/.SpaceVim.d/init.toml"
 alias spvim="vim -u ~/.config/svim/init.vim"
-alias spmacs="( HOME=~/.spacemacs/ ; emacs )&"
 alias lsizes="sudo du -hsx .[!.]* * | sort -rh"
 alias why="echo 'because'"
 alias csp="cd ~/repos/sysprog/project"
@@ -181,7 +180,7 @@ alias go="make puzzle_bots_part1; ./puzzle_bots_part1"
 alias svim="sudoedit"
 alias zpass='PASSWORD_STORE_DIR=~/.zeus-wachtwoord-winkel pass'
 alias emconf="vim ~/.emacs.d/init.el"
-alias emacs="emacs -nw"
+alias cavm="VBoxSDL --startvm Kubuntu\ CA"
 
 ncmpcpp() {
     if ! pidof "$(type -P mpd)" >/dev/null; then
@@ -297,12 +296,10 @@ export MAKEFLAGS="-j$(nproc)"
 export EDITOR='nvim'
 export VISUAL='nvim'
 export JAVA_COMPILER='java'
-export PATH=$PATH:/opt/bin:/usr/lib/ccache:~/Programs/studio3t:~/.local/bin:~/.yarn/bin:~/.dotnet/tools
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export VENV_HOME="$HOME/.venvs"
 # start ssh-agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent > ~/.ssh-agent-thing
@@ -335,6 +332,7 @@ export TODO="t"
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
+
 
 # Set Xterm/screen/Tmux title with only a short hostname.
 # Uncomment this (or set SHORT_HOSTNAME to something else),

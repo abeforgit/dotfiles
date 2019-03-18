@@ -1,0 +1,7 @@
+#! /bin/bash
+if [[ `tty` == "not a tty" ]]
+then
+    emacsclient -c -a "" $1
+else
+    emacsclient -t -a "" $1
+fi
