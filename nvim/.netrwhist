@@ -1,10 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/arne'
-let g:netrw_dirhist_2='/home'
-let g:netrw_dirhist_3='/home/arne/.spacemacs'
-let g:netrw_dirhist_4='/home/arne/.spacemacs/.emacs.d'
-let g:netrw_dirhist_5='/home/arne/.spacemacs'
-let g:netrw_dirhist_6='/home/arne'
-let g:netrw_dirhist_7='/home/arne/.emacs.d'
-let g:netrw_dirhist_8='/home/arne/.zeus-wachtwoord-winkel'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/arne/repos/school/comparch/computerarchitectuur_practica/pract04'
+let g:netrw_dirhist_2='/home/arne/.when'
