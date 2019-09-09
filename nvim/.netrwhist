@@ -1,4 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/arne/repos/school/comparch/computerarchitectuur_practica/pract04'
 let g:netrw_dirhist_2='/home/arne/.when'
+let g:netrw_dirhist_3='/home/arne/repos/school/funcprog/cogs/lib'
+let g:netrw_dirhist_4='/home/arne/repos/school/funcprog/cogs'
+let g:netrw_dirhist_5='/home/arne/repos/school/funcprog/cogs/lib'
+let g:netrw_dirhist_6='/home/arne/repos/school/funcprog/cogs'
+let g:netrw_dirhist_7='/home/arne/repos/school/funcprog/cogs/src'

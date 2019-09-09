@@ -1,5 +1,6 @@
-PATH=$PATH:/home/arne/.cargo/bin/
+PATH=$PATH:/home/arne/.cargo/bin/:/home/arne/.gem/ruby/2.6.0/bin
 export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+export TOGGL_KEY=c0cdb681b26eaaa0ea656387ba30a901
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
@@ -36,7 +37,9 @@ antigen theme denysdovhan/spaceship-prompt
 
 antigen apply
 # aliases
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
+alias ls='lsd'
+alias lt='lsd --tree'
 alias grep='grep --colour=auto'
 alias egrep='egrep --colour=auto'
 alias fgrep='fgrep --colour=auto'
@@ -47,7 +50,9 @@ alias np='nano -w PKGBUILD'
 alias more=less
 
 alias zrc="emc ~/.zshrc"
-alias ipa="ip a"
+alias ipa="ip -c=auto a"
+alias ip4="ip -c=auto -br -4 a"
+alias ip6="ip -c=auto -br -6 a"
 alias helios="ssh arbertra@helios.ugent.be"
 alias firefox='firefox-developer-edition'
 alias qute='qutebrowser'
@@ -70,6 +75,7 @@ alias pbconf="vim ~/.config/polybar/config"
 alias mman="sudo mount /dev/sdb2 ~/manjaro"
 alias wifix="sudo systemctl restart wpa_supplicant@wlp4s0"
 alias wifixx="sudo systemctl stop wpa_supplicant@wlp4s0; sleep 1; sudo systemctl restart dhcpcd@wlp4s0; sleep 1; sudo systemctl start wpa_supplicant@wlp4s0"
+alias dorf="dfhack"
 
 alias wpaconf="sudoedit /etc/wpa_supplicant/wpa_supplicant-wlp4s0.conf"
 alias wttr="curl wttr.in"

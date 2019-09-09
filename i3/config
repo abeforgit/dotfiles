@@ -277,7 +277,7 @@ mode "$mode_gaps_outer" {
 # fix graphics glitch
 new_window none
 #for_window [class=(?i)termite] border pixel 3
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
@@ -335,6 +335,8 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 #custom app shortcuts
 bindsym $mod+n exec --no-startup-id thunar
+
+smart_borders on
 
 #autostart
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
