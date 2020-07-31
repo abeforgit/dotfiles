@@ -33,19 +33,44 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(lua
+   '(nginx
+     php
+     elixir 
+     emberjs
+     ruby
+     lua
      vimscript
      yaml
-     rust
+     (rust :variables lsp-rust-server 'rust-analyzer)
      csv
      python
      html
+     (erc :variables
+          erc-server-list
+          '(
+            ("irc.myanonamouse.net"
+             :port "6697"
+             :ssl t
+             :nick "abeformam"
+             )
+            ("irc.p2p.net"
+             :port "7000"
+             :ssl t
+             :nick "abeforbs"
+             )
+            ("irc.irchighway.net"
+             :ssl t
+             :nick "abeforirc"
+             )
+            )
+      )
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      auto-completion
+     ansible
      ;; better-defaults
      emacs-lisp
      ;; git
@@ -54,8 +79,9 @@ This function should only modify configuration layer settings."
      markdown
      semantic
      multiple-cursors
+     docker
      (c-c++ :variables
-            c-c++-backend 'lsp-ccls
+            ;; c-c++-backend 'lsp-ccls
             c-c++-lsp-sem-highlight-method 'font-lock
             c-c++-adopt-subprojects t
             )
@@ -72,14 +98,16 @@ This function should only modify configuration layer settings."
       javascript-backend 'lsp
       javascript-import-tool 'import-js
       javascript-fmt-tool 'prettier)
+     (lsp :variables lsp-navigation 'peek lsp-ui-doc-enable 'nil)
      (haskell
       :variables
       haskell-enable-hindent t
-      haskell-completion-backend 'intero
       )
+     latex
      syntax-checking
-     lsp
+     spell-checking
      treemacs
+     prolog
      version-control
      vue-mode
      typescript
@@ -96,6 +124,8 @@ This function should only modify configuration layer settings."
    dotspacemacs-additional-packages
    '(
      editorconfig
+     company-lsp
+     (lsp-haskell :location (recipe :fetcher github :repo "emacs-lsp/lsp-haskell"))
     )
 
    ;; A list of packages that cannot be updated.
@@ -130,7 +160,7 @@ It should only modify the values of Spacemacs settings."
    ;; File path pointing to emacs 27.1 executable compiled with support
    ;; for the portable dumper (this is currently the branch pdumper).
    ;; (default "emacs-27.0.50")
-   dotspacemacs-emacs-pdumper-executable-file "emacs-27.0.50"
+   dotspacemacs-emacs-pdumper-executable-file "emacs"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
    ;; portable dumper in the cache directory under dumps sub-directory.
@@ -165,7 +195,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
    ;; (default nil)
-   dotspacemacs-verify-spacelpa-archives nil
+   dotspacemacs-verify-spacelpa-archives t 
 
    ;; If non-nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
@@ -516,6 +546,8 @@ before packages are loaded."
           ("N" "Note with Clipboard" entry (file+headline "~/org/capture.org" "Notes")
            "* NOTE %?\n%U\n   %c" :empty-lines 1)
         ))
+  (setq lsp-haskell-process-path-hie "ghcide")
+  (setq lsp-haskell-process-args-hie '())
   (defun haskell-indentation-advice ()
     (when (and (< 1 (line-number-at-pos))
                (save-excursion
@@ -525,6 +557,7 @@ before packages are loaded."
 
   (advice-add 'haskell-indentation-newline-and-indent
               :after 'haskell-indentation-advice)
+  (setq elixir-ls-path "/usr/lib/elixir-ls")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -542,7 +575,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (vimrc-mode dactyl-mode counsel swiper ivy yaml-mode toml-mode racer flycheck-rust cargo rust-mode csv-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements lsp-python-ms python live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help tide typescript-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path yasnippet-snippets ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters prettier-js popwin persp-mode pcre2el password-generator paradox overseer org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless move-text mmm-mode markdown-toc macrostep lsp-ui lsp-treemacs lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-pos-tip flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl devdocs define-word counsel-projectile company-tern company-statistics company-lsp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
+    (nginx-mode phpunit phpcbf php-extras php-auto-yasnippets geben drupal-mode company-phpactor phpactor composer php-runtime company-php ac-php-core php-mode ob-elixir flycheck-mix flycheck-credo alchemist elixir-mode seeing-is-believing rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocopfmt rubocop rspec-mode robe rbenv rake minitest enh-ruby-mode chruby bundler inf-ruby vimrc-mode dactyl-mode counsel swiper ivy yaml-mode toml-mode racer flycheck-rust cargo rust-mode csv-mode yapfify stickyfunc-enhance pytest pyenv-mode py-isort pippel pipenv pyvenv pip-requirements lsp-python-ms python live-py-mode importmagic epc ctable concurrent deferred helm-pydoc helm-gtags helm-cscope xcscope ggtags cython-mode counsel-gtags company-anaconda blacken anaconda-mode pythonic xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help tide typescript-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode impatient-mode helm-css-scss haml-mode emmet-mode counsel-css company-web web-completion-data add-node-modules-path yasnippet-snippets ws-butler writeroom-mode winum which-key web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package treemacs-projectile treemacs-evil toc-org symon symbol-overlay string-inflection spaceline-all-the-icons restart-emacs request rainbow-delimiters prettier-js popwin persp-mode pcre2el password-generator paradox overseer org-projectile org-present org-pomodoro org-mime org-download org-cliplink org-bullets org-brain open-junk-file nodejs-repl nameless move-text mmm-mode markdown-toc macrostep lsp-ui lsp-treemacs lorem-ipsum livid-mode link-hint json-navigator json-mode js2-refactor js-doc indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-lsp helm-flx helm-descbinds helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot git-gutter-fringe git-gutter-fringe+ gh-md fuzzy font-lock+ flycheck-pos-tip flycheck-package flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline diminish diff-hl devdocs define-word counsel-projectile company-tern company-statistics company-lsp column-enforce-mode clean-aindent-mode centered-cursor-mode browse-at-remote auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

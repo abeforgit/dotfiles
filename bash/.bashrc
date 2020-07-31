@@ -369,3 +369,5 @@ source /usr/share/bash-completion/bash_completion
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
 echo "locate is een ding"
+
+source /home/arne/.config/broot/launcher/bash/br

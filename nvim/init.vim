@@ -39,7 +39,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'vim-latex/vim-latex', {'for': 'tex'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown', 'do': 'cd app & yarn install' }
 
 call plug#end()
 " gruvbox things

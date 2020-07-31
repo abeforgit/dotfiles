@@ -1,0 +1,52 @@
+#! /bin/sh
+
+sxhkd &
+picom &
+dunst &
+udiskie --tray --use-udisks2 &
+blueman-applet &
+~/.config/polybar/launch.sh &
+feh --bg-fill /home/arne/.background/static &
+
+pgrep bspswallow || bspswallow &
+
+# jetbrains fix
+wmname LG3D
+
+mons=$(xrandr --listactivemonitors | tail -n 2 | cut -f 6 -d " " | tr "\n" " ")
+IFS=" " read -a monitors <<< "$mons"
+moncount=${#monitors[@]}
+labels=("I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X")
+
+function getws() {
+    half=$(( 10 / $moncount ))
+    start=$(( $1 * $half ))
+
+    echo ${labels[@]:$start:$half}
+}
+i=0
+for mon in "${monitors[@]}"
+do
+    echo "yeet"
+    bspc monitor $mon -d $(getws i)
+    ((i++))
+done
+
+
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focus_follows_pointer true
+bspc config pointer_follows_monitor true
+bspc config wm_name LG3D
+
+bspc rule -a Emacs state=tiled
+bspc rule -a Lightscreen state=floating
+bspc rule -a Peek state=floating
+bspc rule -a __scratch:scratch state=floating
+
+export PANEL_HEIGHT 400

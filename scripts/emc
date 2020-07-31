@@ -1,17 +1,22 @@
-#! /bin/bash
+#! /bin/sh
 terminal=
 while getopts t name
 do
-    case $name in 
+    case $name in
         t) terminal=1;;
         ?) ;;
     esac
 done
 shift $(($OPTIND - 1))
+
+hide_on_open(){
+    tdrop -ma --wm bspwm auto_hide
+    "$@" && tdrop -ma --wm bspwm auto_show
+}
+
 if [[ -z $terminal ]]
 then
-    emacsclient -c -a "" "$@" >/dev/null & 
-    disown
+    emacsclient -c -a "" "$@" >/dev/null
 else
-    emacsclient -t -a "" "$@"
+    hide_on_open emacsclient -c -a "" "$@" > /dev/null
 fi
